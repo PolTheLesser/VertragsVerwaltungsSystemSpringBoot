@@ -4,6 +4,7 @@ import com.example.VertragsVerwaltungsSystemSpringBoot.Model.Vertrag;
 import com.example.VertragsVerwaltungsSystemSpringBoot.Services.VertragsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,17 +27,19 @@ public class KundenController { //TODO ResponseEntity zurückgeben
         return vertragsService.getVertrag(vsnr);
     }
 
-    @PostMapping("/neu") //TODO PostMapping   // WIEEEEEE?
+    @PostMapping(value = "/neu",
+        consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vertrag> postNeuVertrag() {
         return new ResponseEntity<Vertrag>(vertragsService.postNeu(), HttpStatus.CREATED);
     }
 
-    @PostMapping("postAenderung") //TODO PostMapping
+    @PostMapping(value= "postAenderung",
+        consumes = MediaType.APPLICATION_JSON_VALUE)
     public Vertrag postAenderungVertrag() {
         return vertragsService.postAenderung();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping(value = "/delete")
     public String deleteVertrag() {
         return vertragsService.deleteVertraegeVSNR();
     }

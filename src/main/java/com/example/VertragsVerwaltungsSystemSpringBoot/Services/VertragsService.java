@@ -79,7 +79,7 @@ public class VertragsService {
 
         JSONObject jsonObject;
 
-        int vsnrNeu = 100000;
+        long vsnrNeu = 100000;
 
         do {
             vsnrNeu++;
@@ -91,6 +91,10 @@ public class VertragsService {
         String path = fileRepository.srcPath() + "\\\\main\\\\resources\\\\vertraege\\\\" + vsnrNeu + ".json";
 
         jsonObject = fileRepository.getJsonObject(fileRepository.srcPath() + "\\\\main\\\\resources\\\\input\\\\postNeu.json");
+
+        System.out.println(vsnrNeu);
+
+        jsonObject.put("vsnr", vsnrNeu);
 
         Vertrag vertrag = mapper.jsonObjectToVertrag(jsonObject);
 
