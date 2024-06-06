@@ -39,7 +39,8 @@ public class KundenController { //TODO ResponseEntity zurückgeben
         return vertragsService.postAenderung();
     }
 
-    @DeleteMapping(value = "/delete")
+    @DeleteMapping(value = "/delete",
+        consumes = MediaType.APPLICATION_JSON_VALUE)
     public String deleteVertrag() {
         return vertragsService.deleteVertraegeVSNR();
     }
