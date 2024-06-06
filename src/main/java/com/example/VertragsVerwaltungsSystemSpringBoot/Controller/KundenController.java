@@ -18,30 +18,30 @@ public class KundenController { //TODO ResponseEntity zurückgeben
     private VertragsService vertragsService;
 
     @GetMapping("/vertraege")
-    public List<Vertrag> getVertraege() {
-        return vertragsService.getVertraege();
+    public ResponseEntity<List<Vertrag>> getVertraege() {
+        return new ResponseEntity<List<Vertrag>>(vertragsService.getVertraege(), HttpStatus.CREATED);
     }
 
     @GetMapping("/vertrag/{vsnr}")
-    public Vertrag getVsnrVertrag(@PathVariable("vsnr") String vsnr) {
-        return vertragsService.getVertrag(vsnr);
+    public ResponseEntity<Vertrag> getVsnrVertrag(@PathVariable("vsnr") String vsnr) {
+        return new ResponseEntity<Vertrag>(vertragsService.getVertrag(vsnr), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/neu",
         consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vertrag> postNeuVertrag() {
+    public ResponseEntity<Vertrag> postNeuVertrag(@ResponseBody ) {
         return new ResponseEntity<Vertrag>(vertragsService.postNeu(), HttpStatus.CREATED);
     }
 
     @PostMapping(value= "postAenderung",
         consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Vertrag postAenderungVertrag() {
-        return vertragsService.postAenderung();
+    public ResponseEntity<Vertrag> postAenderungVertrag() {
+        return new ResponseEntity<Vertrag>(vertragsService.postAenderung(), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/delete",
         consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String deleteVertrag() {
-        return vertragsService.deleteVertraegeVSNR();
+    public ResponseEntity<String> deleteVertrag() {
+        return new ResponseEntity<String>(vertragsService.deleteVertraegeVSNR(), HttpStatus.CREATED);
     }
 }
