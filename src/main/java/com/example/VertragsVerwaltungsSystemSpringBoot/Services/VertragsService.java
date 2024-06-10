@@ -105,9 +105,11 @@ public class VertragsService {
 
         JSONObject jsonObjectNew = new JSONObject();
 
+        vertrag.setAntrags_datum(antragsDatum());
+
         jsonObjectNew.put("vsnr", vertrag.getVsnr());
         jsonObjectNew.put("versicherungsbeginn", vertrag.getVersicherungsbeginn());
-        jsonObjectNew.put("antragsdatum", "" + antragsDatum());
+        jsonObjectNew.put("antragsdatum", "" + vertrag.getAntrags_datum());
         jsonObjectNew.put("amtliches_kennzeichen", vertrag.getAmtliches_kennzeichen());
         jsonObjectNew.put("fahrzeug_hersteller", vertrag.getFahrzeug_hersteller());
         jsonObjectNew.put("fahrzeug_typ", vertrag.getFahrzeug_typ());
@@ -141,24 +143,16 @@ public class VertragsService {
 
         return formattedDate;
     }
-    public Vertrag postAenderung() { // TODO die Methode dem Programm anpassen
+    public Vertrag postAenderung(Vertrag vertrag) {
 
-        String path = fileRepository.srcPath() + "/main/resources/input/postAenderung.json";
-
-        JSONObject jsonObject = fileRepository.getJsonObject(path);
-
-        Vertrag vertrag = mapper.jsonObjectToVertrag(jsonObject);
+        String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vertrag.getVsnr() + ".json";
 
         validierungsService.isAenderungVertragValid(vertrag);
 
         return datenUeberschreiben(path, vertrag);
     }
 
-    public String deleteVertraegeVSNR() {
-
-        JSONObject jsonObject = fileRepository.getJsonObject(fileRepository.srcPath() + "/main/resources/input/deleteVertrag.json");
-
-        Vertrag vertrag = mapper.jsonObjectToVertrag(jsonObject);
+    public String deleteVertraegeVSNR(Vertrag vertrag) {
 
         if (fileRepository.deleteFile(vertrag)) {
             return "Datei erfolgreich entfernt.";

@@ -14,6 +14,7 @@ public class Vertrag {
     private String fahrzeug_typ;
     private int fahrzeug_hoechstgeschwindigkeit;
     private String amtliches_kennzeichen;
+    private Object antrags_datum;
 
     public int getWagniskennziffer() {
         return wagniskennziffer;
@@ -109,6 +110,14 @@ public class Vertrag {
 
     public void setAmtliches_kennzeichen(String amtliches_kennzeichen) {
         this.amtliches_kennzeichen = amtliches_kennzeichen;
+    }
+
+    public Object getAntrags_datum() {
+        return antrags_datum;
+    }
+
+    public void setAntrags_datum(Object antrags_datum) {
+        this.antrags_datum = antrags_datum;
     }
 
     public Vertrag() {

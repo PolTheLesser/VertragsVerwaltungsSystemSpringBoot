@@ -34,14 +34,14 @@ public class KundenController { //TODO ResponseEntity zurückgeben
     }
 
     @PutMapping(value= "/postAenderung",
-        consumes = MediaType.APPLICATION_JSON_VALUE) //TODO funktioniert noch nicht
-    public ResponseEntity<Vertrag> postAenderungVertrag() {
-        return ResponseEntity.ok(vertragsService.postAenderung());
+        consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Vertrag> postAenderungVertrag(@RequestBody Vertrag vertrag) {
+        return ResponseEntity.ok(vertragsService.postAenderung(vertrag));
     }
 
     @DeleteMapping(value = "/delete", // Man könnte die DELETE-Methode genauso wie die vertrag/{vsnr} gestalten
         consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> deleteVertrag() {
-        return ResponseEntity.ok(vertragsService.deleteVertraegeVSNR());
+    public ResponseEntity<String> deleteVertrag(@RequestBody Vertrag vertrag) {
+        return ResponseEntity.ok(vertragsService.deleteVertraegeVSNR(vertrag));
     }
 }

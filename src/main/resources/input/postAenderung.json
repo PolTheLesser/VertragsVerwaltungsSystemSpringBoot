@@ -1,1 +1,15 @@
-{"vorname":"jahsdjhasd ","wagniskennziffer":112,"addresse":"Musterstraße 2020","fahrzeug_typ":"Ibiza","fahrzeug_hoechstgeschwindigkeit":180,"fahrzeug_hersteller":"Seat","versicherungsbeginn":"01.03.2024","geburtsdatum":"02.02.1989","preis":58.6,"amtliches_kennzeichen":"K-MM-2002","vsnr":100003,"antragsdatum":"10.06.2024","nachname":"Mustermann"}
+{
+  "wagniskennziffer": 112,
+  "vsnr": 100001,
+
+  "vorname": "ahahahashdsaduhasdasdj ",
+  "nachname": "Mustermann",
+  "geburtsdatum": "02.02.1989",
+  "addresse": "Musterstraße 2020",
+  "versicherungsbeginn": "01.03.2024",
+  "fahrzeug_hersteller": "Seat",
+  "fahrzeug_typ": "Ibiza",
+  "fahrzeug_hoechstgeschwindigkeit": 170,
+  "amtliches_kennzeichen": "K-MM-2002",
+  "antragsdatum": "10.06.2024"
+}
