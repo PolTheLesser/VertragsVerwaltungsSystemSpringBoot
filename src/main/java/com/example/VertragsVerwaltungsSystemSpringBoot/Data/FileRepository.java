@@ -56,7 +56,7 @@ public class FileRepository {
         try {
             String vsnr = String.valueOf(vertrag.getVsnr());
 
-            delFile = new File(srcPath() + "\\\\main\\\\resources\\\\vertraege\\\\" + vsnr + ".json");
+            delFile = new File(srcPath() + "/main/resources/vertraege/" + vsnr + ".json");
 
         } catch (NullPointerException e) {
             System.out.println("Bitte validiere, ob du alle Werte korrekt eingegeben hast.");

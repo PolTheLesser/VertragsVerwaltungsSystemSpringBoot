@@ -21,9 +21,7 @@ public class PreisBerechnungsService {
     @Autowired
     private Mapper mapper;
 
-    public String postPreis(JSONObject jsonObject) {
-
-        Vertrag vertrag = mapper.jsonObjectToVertrag(jsonObject);
+    public String postPreis(Vertrag vertrag) {
 
         if (validierungsService.isPreisValid(vertrag)) {
 
@@ -94,7 +92,7 @@ public class PreisBerechnungsService {
 
     private double getHerstellerBedingteMehrkosten(Vertrag vertrag) {
 
-        String path = fileRepository.srcPath() + "\\\\main\\\\resources\\\\fahrzeugHersteller\\\\fahrzeugHersteller.json";
+        String path = fileRepository.srcPath() + "/main/resources/fahrzeugHersteller/fahrzeugHersteller.json";
 
         JSONObject fahrzeugJson = fileRepository.getJsonObject(path);
 

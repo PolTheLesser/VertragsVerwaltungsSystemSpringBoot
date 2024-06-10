@@ -38,7 +38,7 @@ public class VertragsService {
 
         JSONObject jsonObject;
 
-        String path = fileRepository.srcPath() + "\\\\main\\\\resources\\\\vertraege";
+        String path = fileRepository.srcPath() + "/main/resources/vertraege";
 
         Stream<Path> walk;
         List<Vertrag> vertraege = new ArrayList<>();
@@ -66,51 +66,46 @@ public class VertragsService {
     }
 
     public Vertrag getVertrag(String vsnr) {
-        String path = fileRepository.srcPath() + "\\\\main\\\\resources\\\\vertraege\\\\" + vsnr + ".json";
+        String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vsnr + ".json";
 
         JSONObject jsonObject = fileRepository.getJsonObject(path);
 
         return mapper.jsonObjectToVertrag(jsonObject);
     }
 
-    public Vertrag postNeu() {
+    public Vertrag postNeu(Vertrag vertrag) {
 
         File tempFile;
 
         JSONObject jsonObject;
 
-        long vsnrNeu = 100000;
+        int vsnrNeu = 100000;
 
         do {
             vsnrNeu++;
 
-            tempFile = new File(fileRepository.srcPath() + "\\\\main\\\\resources\\\\vertraege\\\\" + vsnrNeu + ".json");
+            tempFile = new File(fileRepository.srcPath() + "/main/resources/vertraege/" + vsnrNeu + ".json");
 
         } while (tempFile.isFile());
 
-        String path = fileRepository.srcPath() + "\\\\main\\\\resources\\\\vertraege\\\\" + vsnrNeu + ".json";
+        String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vsnrNeu + ".json";
 
-        jsonObject = fileRepository.getJsonObject(fileRepository.srcPath() + "\\\\main\\\\resources\\\\input\\\\postNeu.json");
+        /*jsonObject = fileRepository.getJsonObject(fileRepository.srcPath() + "/main/resources/input/postNeu.json");
 
         System.out.println(vsnrNeu);
 
-        jsonObject.put("vsnr", vsnrNeu);
+        Vertrag vertrag = mapper.jsonObjectToVertrag(jsonObject);*/
 
-        Vertrag vertrag = mapper.jsonObjectToVertrag(jsonObject);
+        vertrag.setVsnr(vsnrNeu);
 
-        return datenUeberschreiben(path, jsonObject, vertrag);
+        return datenUeberschreiben(path, vertrag);
     }
 
-    private Vertrag datenUeberschreiben(String path, JSONObject jsonObjectNew, Vertrag vertrag) {
+    private Vertrag datenUeberschreiben(String path, Vertrag vertrag) {
 
-        String putPreis = preisBerechnungsService.postPreis(jsonObjectNew);
-
-        vertrag.setPreis(Double.parseDouble(putPreis));
-
-        vertrag.setVsnr((int) (long) jsonObjectNew.get("vsnr"));
+        JSONObject jsonObjectNew = new JSONObject();
 
         jsonObjectNew.put("vsnr", vertrag.getVsnr());
-        jsonObjectNew.put("preis", vertrag.getPreis());
         jsonObjectNew.put("versicherungsbeginn", vertrag.getVersicherungsbeginn());
         jsonObjectNew.put("antragsdatum", "" + antragsDatum());
         jsonObjectNew.put("amtliches_kennzeichen", vertrag.getAmtliches_kennzeichen());
@@ -122,6 +117,12 @@ public class VertragsService {
         jsonObjectNew.put("vorname", vertrag.getVorname());
         jsonObjectNew.put("addresse", vertrag.getAddresse());
         jsonObjectNew.put("geburtsdatum", vertrag.getGeburtsdatum());
+
+        String putPreis = preisBerechnungsService.postPreis(vertrag);
+
+        vertrag.setPreis(Double.parseDouble(putPreis));
+
+        jsonObjectNew.put("preis", vertrag.getPreis());
 
         boolean isWritten = fileRepository.writeFile(path, jsonObjectNew);
 
@@ -142,7 +143,7 @@ public class VertragsService {
     }
     public Vertrag postAenderung() { // TODO die Methode dem Programm anpassen
 
-        String path = fileRepository.srcPath() + "\\\\main\\\\resources\\\\input\\\\postAenderung.json";
+        String path = fileRepository.srcPath() + "/main/resources/input/postAenderung.json";
 
         JSONObject jsonObject = fileRepository.getJsonObject(path);
 
@@ -150,12 +151,12 @@ public class VertragsService {
 
         validierungsService.isAenderungVertragValid(vertrag);
 
-        return datenUeberschreiben(path, jsonObject, vertrag);
+        return datenUeberschreiben(path, vertrag);
     }
 
     public String deleteVertraegeVSNR() {
 
-        JSONObject jsonObject = fileRepository.getJsonObject(fileRepository.srcPath() + "\\\\main\\\\resources\\\\input\\\\deleteVertrag.json");
+        JSONObject jsonObject = fileRepository.getJsonObject(fileRepository.srcPath() + "/main/resources/input/deleteVertrag.json");
 
         Vertrag vertrag = mapper.jsonObjectToVertrag(jsonObject);
 

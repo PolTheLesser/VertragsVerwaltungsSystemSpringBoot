@@ -156,7 +156,7 @@ public class ValidierungsService {
 
     private boolean checkIfFahrzeugHerstellerExists(Vertrag vertrag) {
 
-        String path = fileRepository.srcPath() + "\\\\main\\\\resources\\\\fahrzeugHersteller\\\\fahrzeugHersteller.json";
+        String path = fileRepository.srcPath() + "/main/resources/fahrzeugHersteller/fahrzeugHersteller.json";
 
         JSONObject fahrzeugJson = fileRepository.getJsonObject(path);
 

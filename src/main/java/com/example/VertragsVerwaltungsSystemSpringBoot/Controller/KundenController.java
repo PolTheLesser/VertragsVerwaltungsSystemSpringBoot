@@ -17,31 +17,31 @@ public class KundenController { //TODO ResponseEntity zurückgeben
     @Autowired
     private VertragsService vertragsService;
 
-    @GetMapping("/vertraege")
+    @GetMapping("/vertraege") // Muss auch keine JSON lesen
     public ResponseEntity<List<Vertrag>> getVertraege() {
-        return new ResponseEntity<List<Vertrag>>(vertragsService.getVertraege(), HttpStatus.CREATED);
+        return ResponseEntity.ok(vertragsService.getVertraege());
     }
 
-    @GetMapping("/vertrag/{vsnr}")
+    @GetMapping("/vertrag/{vsnr}") // Muss gar keine JSON lesen, da die vsnr ja schon in der URL steht (input JSON löschen?)
     public ResponseEntity<Vertrag> getVsnrVertrag(@PathVariable("vsnr") String vsnr) {
-        return new ResponseEntity<Vertrag>(vertragsService.getVertrag(vsnr), HttpStatus.CREATED);
+        return ResponseEntity.ok(vertragsService.getVertrag(vsnr));
     }
 
     @PostMapping(value = "/neu",
         consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vertrag> postNeuVertrag(@ResponseBody ) {
-        return new ResponseEntity<Vertrag>(vertragsService.postNeu(), HttpStatus.CREATED);
+    public ResponseEntity<Vertrag> postNeuVertrag(@RequestBody Vertrag vertrag){
+        return ResponseEntity.ok(vertragsService.postNeu(vertrag));
     }
 
-    @PostMapping(value= "postAenderung",
-        consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value= "/postAenderung",
+        consumes = MediaType.APPLICATION_JSON_VALUE) //TODO funktioniert noch nicht
     public ResponseEntity<Vertrag> postAenderungVertrag() {
-        return new ResponseEntity<Vertrag>(vertragsService.postAenderung(), HttpStatus.CREATED);
+        return ResponseEntity.ok(vertragsService.postAenderung());
     }
 
-    @DeleteMapping(value = "/delete",
+    @DeleteMapping(value = "/delete", // Man könnte die DELETE-Methode genauso wie die vertrag/{vsnr} gestalten
         consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteVertrag() {
-        return new ResponseEntity<String>(vertragsService.deleteVertraegeVSNR(), HttpStatus.CREATED);
+        return ResponseEntity.ok(vertragsService.deleteVertraegeVSNR());
     }
 }
