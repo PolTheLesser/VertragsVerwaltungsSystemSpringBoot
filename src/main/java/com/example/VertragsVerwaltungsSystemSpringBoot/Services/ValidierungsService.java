@@ -17,7 +17,21 @@ import java.util.List;
 
 @Service
 public class ValidierungsService {
-    // Klasse mit Methoden, die der Validierung sämtlicher Daten dienen
+    /* TODO postNeu
+    // WICHTIG! Wie werden die Daten in das Programm eingespeist? HTML Eingabe-Oberfläche oder einlesen einer Datei oder was anderes?
+    // Wie werden die Fehler am Ende angezeigt?
+    TODO VOrname, Nachname, Addresse, wird nicht nach leerem String geprüft
+    TODO Geburstag, FahrezeugHersteller, FahrzeugHoechstgeschwindigkeit custom Exception (Fehlermeldung im Browser????)
+    TODO Versicherungsbeginn nach Datumsformat überprüfen
+    TODO Kennzeichen nach Kennzeichenformat überprüfen
+
+
+
+    TODO Geburtsdatum & Versicherungsbeginn nach Datumsformat überprüfen
+    TODO Geburstag, FahrezeugHersteller, FahrzeugHoechstgeschwindigkeit custom Exception (Fehlermeldung im Browser????)
+    TODO Versicherungsbeginn nach Datumsformat überprüfen
+    TODO Kennzeichen nach Kennzeichenformat überprüfen
+     */
 
     @Autowired
     private FileRepository fileRepository;
