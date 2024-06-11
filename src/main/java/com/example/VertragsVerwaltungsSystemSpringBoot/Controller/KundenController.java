@@ -17,6 +17,13 @@ public class KundenController { //TODO ResponseEntity zurückgeben
     @Autowired
     private VertragsService vertragsService;
 
+    @GetMapping("/")
+    public String index(){
+        return "index";
+    }
+
+
+
     @GetMapping("/vertraege") // Muss auch keine JSON lesen
     public ResponseEntity<List<Vertrag>> getVertraege() {
         return ResponseEntity.ok(vertragsService.getVertraege());
@@ -33,7 +40,7 @@ public class KundenController { //TODO ResponseEntity zurückgeben
         return ResponseEntity.ok(vertragsService.postNeu(vertrag));
     }
 
-    @PutMapping(value= "/postAenderung",
+    @PutMapping(value= "/ postAenderung",
         consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vertrag> postAenderungVertrag(@RequestBody Vertrag vertrag) {
         return ResponseEntity.ok(vertragsService.postAenderung(vertrag));
