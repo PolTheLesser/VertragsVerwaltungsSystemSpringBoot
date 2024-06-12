@@ -11,12 +11,15 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ControllerAdvice
 public class ErrorController {
 
+
+
+
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String URLNotFound(NoHandlerFoundException e, Model model) {
         model.addAttribute("error", "URL not found");
         model.addAttribute("message", e.getMessage());
-        return "error/URLNotFound";
+        return "error/URLNotFound"; // Das wäre die URL der Fehlerseite (ergibt das Sinn?)
     }
 
     @ExceptionHandler(ContractNotFoundException.class)
@@ -24,6 +27,6 @@ public class ErrorController {
     public String NoContractFound(ContractNotFoundException e, Model model) {
         model.addAttribute("error", "Contract not found");
         model.addAttribute("message", e.getMessage());
-        return "error/NoContractFound";
+        return "error/NoContractFound"; // Das wäre die URL der Fehlerseite (ergibt das Sinn?)
     }
 }

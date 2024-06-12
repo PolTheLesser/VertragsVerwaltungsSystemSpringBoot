@@ -49,12 +49,11 @@ public class FileRepository {
             return false;
         }
     }
-    public boolean deleteFile(Vertrag vertrag) {
+    public boolean deleteFile(String vsnr) {
 
         File delFile = null;
 
         try {
-            String vsnr = String.valueOf(vertrag.getVsnr());
 
             delFile = new File(srcPath() + "/main/resources/vertraege/" + vsnr + ".json");
 
@@ -68,11 +67,6 @@ public class FileRepository {
 
         }
         return delFile.delete();
-    }
-
-    public String getFahrzeugHersteller(JSONObject jsonObject) {
-
-        return jsonObject.get("fahrzeug_hersteller").toString().toLowerCase();
     }
 
     public String srcPath() {

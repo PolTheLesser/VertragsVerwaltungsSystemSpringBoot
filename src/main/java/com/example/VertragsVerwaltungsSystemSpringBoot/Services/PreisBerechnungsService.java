@@ -18,9 +18,6 @@ public class PreisBerechnungsService {
     @Autowired
     private ValidierungsService validierungsService;
 
-    @Autowired
-    private Mapper mapper;
-
     public String postPreis(Vertrag vertrag) {
 
         if (validierungsService.isPreisValid(vertrag)) {

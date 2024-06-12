@@ -1,8 +1,0 @@
-{
-  "methode": "POST",
-  "aktion": "/preis",
-
-  "fahrzeug_hoechstgeschwindigkeit": 250,
-  "fahrzeug_hersteller": "BMW",
-  "geburtsdatum": "23.06.2000"
-}

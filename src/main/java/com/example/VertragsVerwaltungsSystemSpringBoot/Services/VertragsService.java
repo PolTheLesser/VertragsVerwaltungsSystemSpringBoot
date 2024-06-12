@@ -58,6 +58,8 @@ public class VertragsService {
 
         for (String fileName : result) {
 
+            // TODO? Jackson einbinden, um einen objectMapper zu haben, so muss ihn in nicht sleber bauen (besser oder schlechter?)
+
             jsonObject = fileRepository.getJsonObject(fileName);
 
             vertraege.add(mapper.jsonObjectToVertrag(jsonObject));
@@ -77,8 +79,6 @@ public class VertragsService {
 
         File tempFile;
 
-        JSONObject jsonObject;
-
         int vsnrNeu = 100000;
 
         do {
@@ -90,15 +90,30 @@ public class VertragsService {
 
         String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vsnrNeu + ".json";
 
-        /*jsonObject = fileRepository.getJsonObject(fileRepository.srcPath() + "/main/resources/input/postNeu.json");
-
-        System.out.println(vsnrNeu);
-
-        Vertrag vertrag = mapper.jsonObjectToVertrag(jsonObject);*/
-
         vertrag.setVsnr(vsnrNeu);
 
+        validierungsService.isNeuVertragValid(vertrag);
+
         return datenUeberschreiben(path, vertrag);
+    }
+
+    public Vertrag postAenderung(Vertrag vertrag) {
+
+        String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vertrag.getVsnr() + ".json";
+
+        validierungsService.isAenderungVertragValid(vertrag);
+
+        return datenUeberschreiben(path, vertrag);
+    }
+
+    public String deleteVertraegeVSNR(String vsnr) {
+
+        if (fileRepository.deleteFile(vsnr)) {
+            return "Datei erfolgreich entfernt.";
+
+        } else {
+            return "Datei konnte nicht entfernt werden.";
+        }
     }
 
     private Vertrag datenUeberschreiben(String path, Vertrag vertrag) {
@@ -142,23 +157,5 @@ public class VertragsService {
         String formattedDate = datum.format(format);
 
         return formattedDate;
-    }
-    public Vertrag postAenderung(Vertrag vertrag) {
-
-        String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vertrag.getVsnr() + ".json";
-
-        validierungsService.isAenderungVertragValid(vertrag);
-
-        return datenUeberschreiben(path, vertrag);
-    }
-
-    public String deleteVertraegeVSNR(Vertrag vertrag) {
-
-        if (fileRepository.deleteFile(vertrag)) {
-            return "Datei erfolgreich entfernt.";
-
-        } else {
-            return "Datei konnte nicht entfernt werden.";
-        }
     }
 }

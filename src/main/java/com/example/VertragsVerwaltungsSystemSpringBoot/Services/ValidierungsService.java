@@ -6,25 +6,21 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class ValidierungsService {
     /* TODO postNeu
-    // WICHTIG! Wie werden die Daten in das Programm eingespeist? HTML Eingabe-Oberfläche oder einlesen einer Datei oder was anderes?
-    // Wie werden die Fehler am Ende angezeigt?
+
     TODO VOrname, Nachname, Addresse, wird nicht nach leerem String geprüft
-    TODO Geburstag, FahrezeugHersteller, FahrzeugHoechstgeschwindigkeit custom Exception (Fehlermeldung im Browser????)
+    TODO Geburstag, FahrezeugHersteller, FahrzeugHoechstgeschwindigkeit
+     & custom Exception (Fehlermeldung im Browser????)  //Frontend
     TODO Versicherungsbeginn nach Datumsformat überprüfen
     TODO Kennzeichen nach Kennzeichenformat überprüfen
-
 
 
     TODO Geburtsdatum & Versicherungsbeginn nach Datumsformat überprüfen
@@ -36,7 +32,7 @@ public class ValidierungsService {
     @Autowired
     private FileRepository fileRepository;
 
-    public boolean isPreisValid(Vertrag vertrag){
+    public boolean isPreisValid(Vertrag vertrag) {
 
         try {
             if (!checkIfFahrzeugHerstellerExists(vertrag)) {
@@ -50,7 +46,7 @@ public class ValidierungsService {
             }
 
             String datum = vertrag.getGeburtsdatum();
-            Date aktuallesDatum = new Date();
+            Date aktuellesDatum = new Date();
 
             Date geburtsdatum;
 
@@ -62,8 +58,7 @@ public class ValidierungsService {
                 return false;
             }
 
-
-            if (isPersonUnderEighteen(geburtsdatum, aktuallesDatum)) {
+            if (isPersonUnderEighteen(geburtsdatum, aktuellesDatum)) {
                 System.out.println("Die Person muss 18 Jahre oder älter sein");
                 return false;
             }
@@ -74,7 +69,6 @@ public class ValidierungsService {
         } catch (ClassCastException e) {
             System.out.println("Bitte validiere, ob du alle Werte korrekt eingegeben hast.");
             return false;
-
         }
         return true;
     }
@@ -155,19 +149,6 @@ public class ValidierungsService {
         return false;
     }
 
-    private static LocalDate getVersicherungsBeginn(JSONObject jsonObject) {
-
-        String versicherungsBeginnString = (String) jsonObject.get("versicherungsbeginn");
-
-        int jahrDesVersicherungsBeginns = Integer.parseInt(versicherungsBeginnString.substring(6));
-
-        int monatDesVersicherungsBeginns = Integer.parseInt(versicherungsBeginnString.substring(3, 5));
-
-        int tagDesVersicherungsBeginns = Integer.parseInt(versicherungsBeginnString.substring(0, 2));
-
-        return LocalDate.of(jahrDesVersicherungsBeginns, monatDesVersicherungsBeginns, tagDesVersicherungsBeginns);
-    }
-
     private boolean checkIfFahrzeugHerstellerExists(Vertrag vertrag) {
 
         String path = fileRepository.srcPath() + "/main/resources/fahrzeugHersteller/fahrzeugHersteller.json";
@@ -189,17 +170,5 @@ public class ValidierungsService {
         long alterInJahren = (vergleichsdatum.getTime() - geburtsdatum.getTime()) / millisProJahr;
 
         return alterInJahren < 18;
-    }
-
-    public boolean checkForApproval(String eingabe) {
-
-        String[] approval = {"ja", "jo", "yes", "ye", "jau", "klar", "jq", "js", "jw", "jy", "ka", "ia", "ua", "ha", "ma"};
-
-        List<String> approvalList = Arrays.asList(approval);
-
-        if (approvalList.contains(eingabe)) {
-            return true;
-        }
-        return false;
     }
 }

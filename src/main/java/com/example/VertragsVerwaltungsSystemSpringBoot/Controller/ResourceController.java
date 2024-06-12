@@ -1,5 +1,5 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Controller;
-
+/*
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ResourceController {
 
     @GetMapping("/resource/{id}")
-    public Resource getResource(@PathVariable String id) {
+    public  getResource(@PathVariable String id) {
         // gibt html dokument je nach fehler zurück (ist das sinnvoll?)
         /*
         if id == NoContractFound
@@ -18,5 +18,6 @@ public class ResourceController {
         else if id == URLNotFound
         return URLNotFound.html
          */
+       /* return "NoContractFound";
     }
-}
+}*/
