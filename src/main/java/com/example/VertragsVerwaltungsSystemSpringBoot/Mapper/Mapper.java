@@ -24,6 +24,7 @@ public class Mapper {
             vertrag.setFahrzeug_typ((String) jsonObject.get("fahrzeug_typ"));
             vertrag.setFahrzeug_hoechstgeschwindigkeit((int) (long) jsonObject.get("fahrzeug_hoechstgeschwindigkeit"));
             vertrag.setAmtliches_kennzeichen((String) jsonObject.get("amtliches_kennzeichen"));
+            vertrag.setAntrags_datum(jsonObject.get("antragsdatum"));
         } else if (jsonObject.get("methode").equals("GET") && jsonObject.get("aktion").equals("/vertrag/vsnr")) {
             vertrag.setVsnr((int) (long) jsonObject.get("vsnr"));
 
