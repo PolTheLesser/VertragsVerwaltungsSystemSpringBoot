@@ -143,8 +143,6 @@ public class VertragsService {
 
         boolean isWritten = fileRepository.writeFile(path, jsonObjectNew);
 
-        System.out.println(isWritten);
-
         return vertrag;
     }
 

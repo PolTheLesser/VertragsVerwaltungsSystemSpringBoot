@@ -1,13 +1,13 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Exceptions;
 
-public class ValidationError {
+public class ValidationException {
 
     public String attribute;
     public String message;
 
-    public ValidationError(String attribute, String message) {
-        attribute = this.attribute;
-        message = this.message;
+    public ValidationException(String attribute, String message) {
+        this.attribute = attribute;
+        this.message = message;
     }
 
     public String getAttribute() {

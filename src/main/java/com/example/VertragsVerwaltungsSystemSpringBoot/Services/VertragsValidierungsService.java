@@ -1,7 +1,7 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Services;
 
 import com.example.VertragsVerwaltungsSystemSpringBoot.Data.FileRepository;
-import com.example.VertragsVerwaltungsSystemSpringBoot.Exceptions.ValidationError;
+import com.example.VertragsVerwaltungsSystemSpringBoot.Exceptions.ValidationException;
 import com.example.VertragsVerwaltungsSystemSpringBoot.Model.Vertrag;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class VertragsValidierungsService {
     @Autowired
     private FileRepository fileRepository;
 
-    private List<ValidationError> errors = new ArrayList<>();
+    private List<ValidationException> errors = new ArrayList<>();
 
     public void verifyChanges(Vertrag vertrag) {
         verifyStringAttribute("Vorname", vertrag.getVorname());
@@ -32,8 +32,8 @@ public class VertragsValidierungsService {
         isPreisValid(vertrag);
 
         if (!errors.isEmpty()) {
-            for (ValidationError error : errors) {
-                System.out.println("Fehler beim " + error.getAttribute() + ": " + error.getMessage());
+            for (ValidationException error : getErrors()) {
+                System.out.println("Fehler bei " + error.getAttribute() + ": " + error.getMessage());
             }
         }
     }
@@ -51,31 +51,31 @@ public class VertragsValidierungsService {
 
     private void verifyVehicleManufacturer(String hersteller) {
         if (hersteller == null || hersteller.isEmpty()) {
-            errors.add(new ValidationError("Fahrzeughersteller", "Bitte geben Sie einen Hersteller an."));
+            errors.add(new ValidationException("Fahrzeughersteller", "Bitte geben Sie einen Hersteller an."));
             return;
         }
         String path = fileRepository.srcPath() + "/main/resources/fahrzeugHersteller/fahrzeugHersteller.json";
 
         JSONObject fahrzeugJson = fileRepository.getJsonObject(path);
 
-        if (!fahrzeugJson.containsKey(hersteller)) {
-            errors.add(new ValidationError("Fahrzughersteller", "Dieser Hersteller wird nicht versichert."));
+        if (!fahrzeugJson.containsKey(hersteller.toLowerCase())) {
+            errors.add(new ValidationException("Fahrzughersteller", "Dieser Hersteller wird nicht versichert."));
         }
     }
 
     private void verifyMaxSpeed(int vMax) {
         if (vMax > 250) {
-            errors.add(new ValidationError("Höchstgeschwindigkeit", "Die Höchstgeschindigkeit darf 250 km/h nicht überscchreiten."));
+            errors.add(new ValidationException("Höchstgeschwindigkeit", "Die Höchstgeschindigkeit darf 250 km/h nicht überscchreiten."));
         }
         if (vMax <= 0) {
-            errors.add(new ValidationError("Höchstgeschwindigkeit", "Die Höchstgeschwindigkeit muss mehr als 0 km/h betragen."));
+            errors.add(new ValidationException("Höchstgeschwindigkeit", "Die Höchstgeschwindigkeit muss mehr als 0 km/h betragen."));
         }
     }
 
 
     private void verifyDate(String attributeName, String date) {
         if (date == null || date.isEmpty()) {
-            errors.add(new ValidationError(attributeName, "Eingabe konnte nicht validiert werden, bitte überprüfen Sie die Eingabe"));
+            errors.add(new ValidationException(attributeName, "Eingabe konnte nicht validiert werden, bitte überprüfen Sie die Eingabe"));
             return;
         }
 
@@ -85,7 +85,7 @@ public class VertragsValidierungsService {
         try {
             birthDate = LocalDate.parse(date, formatter);
         } catch (Exception e) {
-            errors.add(new ValidationError(date,"Falsches Datumsformat. dd.MM.yyyy erwartet."));
+            errors.add(new ValidationException(date,"Falsches Datumsformat. dd.MM.yyyy erwartet."));
         }
     }
 
@@ -98,19 +98,19 @@ public class VertragsValidierungsService {
         long age = ChronoUnit.YEARS.between(birthDate, currentDate);
 
         if (age < 18) {
-            errors.add(new ValidationError("geburtsdatum", "Person is under 18 years old."));
+            errors.add(new ValidationException("geburtsdatum", "Person is under 18 years old."));
         }
     }
 
     private void verifyStringAttribute(String attributeName, String stringAttr) {
         if (stringAttr == null || stringAttr.isEmpty()) {
-            errors.add(new ValidationError(attributeName, "Eingabe konnte nicht validiert werden, bitte überprüfen Sie die Eingabe."));
+            errors.add(new ValidationException(attributeName, "Eingabe konnte nicht validiert werden, bitte überprüfen Sie die Eingabe."));
         }
     }
 
     private void isKennzeichenValid(String kennzeichen) {
         if (kennzeichen == null || kennzeichen.isEmpty()) {
-            errors.add(new ValidationError("Amtliches Kennzeichen", "Eingabe konnte nicht validiert werden, bitte überprüfen Sie die Eingabe."));
+            errors.add(new ValidationException("Amtliches Kennzeichen", "Eingabe konnte nicht validiert werden, bitte überprüfen Sie die Eingabe."));
         }
 
         String pattern = "^[A-ZÄÖÜ]{1,3}-[A-ZÄÖÜ]{1,2}-\\d{1,4}$";
@@ -118,7 +118,11 @@ public class VertragsValidierungsService {
         Matcher m = r.matcher(kennzeichen);
 
         if (!m.matches()) {
-            errors.add(new ValidationError("Amtliches Kennzeichen", "Ungültiges Deutsches KennzeichenFormat. (XX-XX-1234)"));
+            errors.add(new ValidationException("Amtliches Kennzeichen", "Ungültiges Deutsches KennzeichenFormat. (XX-XX-1234)"));
         }
+    }
+
+    public List<ValidationException> getErrors() {
+        return errors;
     }
 }
