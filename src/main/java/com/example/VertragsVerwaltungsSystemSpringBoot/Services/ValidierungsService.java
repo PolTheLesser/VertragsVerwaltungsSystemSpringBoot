@@ -1,6 +1,6 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Services;
 
-import com.example.VertragsVerwaltungsSystemSpringBoot.Data.FileRepository;
+/*import com.example.VertragsVerwaltungsSystemSpringBoot.Data.FileRepository;
 import com.example.VertragsVerwaltungsSystemSpringBoot.Model.Vertrag;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Service
 public class ValidierungsService {
-    /* TODO postNeu
+    TODO postNeu
 
     TODO VOrname, Nachname, Addresse, wird nicht nach leerem String geprüft
     TODO Geburstag, FahrezeugHersteller, FahrzeugHoechstgeschwindigkeit
@@ -27,7 +27,7 @@ public class ValidierungsService {
     TODO Geburstag, FahrezeugHersteller, FahrzeugHoechstgeschwindigkeit custom Exception (Fehlermeldung im Browser????)
     TODO Versicherungsbeginn nach Datumsformat überprüfen
     TODO Kennzeichen nach Kennzeichenformat überprüfen
-     */
+
 
     @Autowired
     private FileRepository fileRepository;
@@ -171,4 +171,4 @@ public class ValidierungsService {
 
         return alterInJahren < 18;
     }
-}
+}*/

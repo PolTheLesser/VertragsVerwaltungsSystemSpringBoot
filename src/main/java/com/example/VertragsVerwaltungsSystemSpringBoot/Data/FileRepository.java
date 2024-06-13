@@ -1,6 +1,5 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Data;
 
-import com.example.VertragsVerwaltungsSystemSpringBoot.Model.Vertrag;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -34,6 +33,7 @@ public class FileRepository {
             return null;
         }
     }
+
     public boolean writeFile(String path, JSONObject jsonObject) {
 
         try {
@@ -49,6 +49,7 @@ public class FileRepository {
             return false;
         }
     }
+
     public boolean deleteFile(String vsnr) {
 
         File delFile = null;

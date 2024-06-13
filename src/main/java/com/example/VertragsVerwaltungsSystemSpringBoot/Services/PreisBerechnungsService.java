@@ -15,37 +15,30 @@ public class PreisBerechnungsService {
     @Autowired
     private FileRepository fileRepository;
 
-    @Autowired
-    private ValidierungsService validierungsService;
-
     public String postPreis(Vertrag vertrag) {
 
-        if (validierungsService.isPreisValid(vertrag)) {
+        String geburtsdatum = vertrag.getGeburtsdatum();
 
-            String geburtsdatum = vertrag.getGeburtsdatum();
+        int geburtsjahr = Integer.parseInt(geburtsdatum.substring(6));
 
-            int geburtsjahr = Integer.parseInt(geburtsdatum.substring(6));
+        int vMax = vertrag.getFahrzeug_hoechstgeschwindigkeit();
 
-            int vMax = vertrag.getFahrzeug_hoechstgeschwindigkeit();
+        int alter;
+        int sfKlasseVereinfacht;
 
-            int alter;
-            int sfKlasseVereinfacht;
+        double rabattInProzent = 0;
 
-            double rabattInProzent = 0;
+        alter = Year.now().getValue() - geburtsjahr;
 
-            alter = Year.now().getValue() - geburtsjahr;
+        sfKlasseVereinfacht = alter - 17;
 
-            sfKlasseVereinfacht = alter - 17;
+        rabattInProzent = getRabattInProzent(sfKlasseVereinfacht);
 
-            rabattInProzent = getRabattInProzent(sfKlasseVereinfacht);
+        double herstellerBedingteMehrkosten = getHerstellerBedingteMehrkosten(vertrag);
 
-            double herstellerBedingteMehrkosten = getHerstellerBedingteMehrkosten(vertrag);
+        double versicherungsSummeMonatlich = (vMax) * herstellerBedingteMehrkosten * (1 - rabattInProzent);
 
-            double versicherungsSummeMonatlich = (vMax) * herstellerBedingteMehrkosten * (1 - rabattInProzent);
-
-            return "" + Math.round(versicherungsSummeMonatlich * 100) / 100.00;
-        }
-        return "Eingabe nicht Valide.";
+        return "" + Math.round(versicherungsSummeMonatlich * 100) / 100.00;
     }
 
     private double getRabattInProzent(int sfKlasseVereinfacht) {

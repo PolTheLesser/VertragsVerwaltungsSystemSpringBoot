@@ -32,7 +32,7 @@ public class VertragsService {
     private PreisBerechnungsService preisBerechnungsService;
 
     @Autowired
-    private ValidierungsService validierungsService;
+    private VertragsValidierungsService validierungsService;
 
     public List<Vertrag> getVertraege() {
 
@@ -92,7 +92,7 @@ public class VertragsService {
 
         vertrag.setVsnr(vsnrNeu);
 
-        validierungsService.isNeuVertragValid(vertrag);
+        validierungsService.verifyContract(vertrag);
 
         return datenUeberschreiben(path, vertrag);
     }
@@ -101,7 +101,7 @@ public class VertragsService {
 
         String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vertrag.getVsnr() + ".json";
 
-        validierungsService.isAenderungVertragValid(vertrag);
+        validierungsService.verifyChanges(vertrag);
 
         return datenUeberschreiben(path, vertrag);
     }
