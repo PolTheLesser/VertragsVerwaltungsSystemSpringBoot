@@ -4,21 +4,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class ContractNotFoundException extends RuntimeException {
+public class NoContractFoundException extends RuntimeException {
 
-    public ContractNotFoundException() {
+    public NoContractFoundException() {
         super();
     }
 
-    public ContractNotFoundException(String message, Throwable cause) {
+    public NoContractFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ContractNotFoundException(String message) {
+    public NoContractFoundException(String message) {
         super(message);
     }
 
-    public ContractNotFoundException(Throwable cause) {
+    public NoContractFoundException(Throwable cause) {
         super(cause);
     }
 }

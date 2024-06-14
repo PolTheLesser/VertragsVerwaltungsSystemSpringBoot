@@ -34,7 +34,7 @@ public class KundenController {
 
     @PutMapping(value = "/change",
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vertrag> postAenderungVertrag(@RequestBody Vertrag vertrag) {
+    public ResponseEntity<Vertrag> putAenderungVertrag(@RequestBody Vertrag vertrag) {
         return ResponseEntity.ok(vertragsService.postAenderung(vertrag));
     }
 

@@ -72,6 +72,8 @@ public class VertragsService {
 
         JSONObject jsonObject = fileRepository.getJsonObject(path);
 
+        validierungsService.doesContractExist(jsonObject);
+
         return mapper.jsonObjectToVertrag(jsonObject);
     }
 
