@@ -12,7 +12,7 @@ public class Mapper {
         Vertrag vertrag = new Vertrag();
 
         if (jsonObject.get("methode") == null && jsonObject.get("vertrag") == null){
-            vertrag.setWagniskennziffer(112);
+            vertrag.setWagniskennziffer((int) (long) jsonObject.get("wagniskennziffer"));
             vertrag.setPreis(new Double(jsonObject.get("preis").toString()));
             vertrag.setVsnr((int) (long) jsonObject.get("vsnr"));
             vertrag.setVorname((String) jsonObject.get("vorname"));

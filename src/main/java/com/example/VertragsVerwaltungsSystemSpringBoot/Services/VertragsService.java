@@ -91,6 +91,7 @@ public class VertragsService {
         String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vsnrNeu + ".json";
 
         vertrag.setVsnr(vsnrNeu);
+        vertrag.setWagniskennziffer(112);
 
         validierungsService.verifyContract(vertrag);
 
