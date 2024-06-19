@@ -1,6 +1,5 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Controller;
 
-import io.micrometer.core.instrument.config.validate.ValidationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +10,7 @@ public class ResourceController {
 
 
     @GetMapping("/resource/{id}")
-    public ResponseEntity<String> getResource(@PathVariable String id) throws ValidationException {
+    public ResponseEntity<String> getResource(@PathVariable String id) {
         return ResponseEntity.ok(id);
     }
 }

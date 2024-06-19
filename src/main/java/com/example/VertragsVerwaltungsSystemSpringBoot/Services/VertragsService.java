@@ -58,8 +58,6 @@ public class VertragsService {
 
         for (String fileName : result) {
 
-            // TODO? Jackson einbinden, um einen objectMapper zu haben, so muss ihn in nicht sleber bauen (besser oder schlechter?)
-
             jsonObject = fileRepository.getJsonObject(fileName);
 
             vertraege.add(mapper.jsonObjectToVertrag(jsonObject));

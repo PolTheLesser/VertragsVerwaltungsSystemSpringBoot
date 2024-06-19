@@ -19,10 +19,8 @@ public class ErrorController {
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String urlNotFound(NoHandlerFoundException e, Model model) {
-        model.addAttribute("error", "URL not found");
-        model.addAttribute("message", e.getMessage());
-        return "error/URLNotFound"; // Das wäre die URL der Fehlerseite (ergibt das Sinn?)
+    public ResponseEntity<String> urlNotFound(NoHandlerFoundException e) {
+        return resourceController.getResource(e.getMessage());
     }
 
     @ExceptionHandler(NoContractFoundException.class)
