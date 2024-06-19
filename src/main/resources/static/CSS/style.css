@@ -1,0 +1,14 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: black;
+}
+.errorMessages {
+    color:red;
+    font-size: large;
+}
+.hidden {
+    display: none;
+}

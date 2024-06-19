@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vertrags Verwaltungs System</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+    <h1>Vertrag anlegen/ändern</h1>
+    <hr>
+
+    <form id="auswahl">
+        <label for="anlegen">Vertrag anlegen</label>
+        <input type="radio" id="anlegen" name="toggle" checked="checked" value="option1">
+        <label for="ändern">Vertrag ändern</label>
+        <input type="radio" id="ändern" name="toggle" value="option2"> <br>
+    </form>
+
+    <div id="auswahl1">
+        <form id="contractForm1" onsubmit="submitForm(event, 'contractForm1')">
+            <div id="formFields1"></div>
+            <div id="errorMessages1" class="errorMessages"></div>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </form>
+    </div>
+
+    <div id="auswahl2" class="hidden">
+        <form id="contractForm2" onsubmit="submitFormChanges(event, 'contractForm2')">
+            <p>
+                <label for="vsnr">Versicherungsnummer:</label> <br>
+                <input type="text" id="vsnr" name="vsnr"> <br>
+            </p>
+            <div id="formFields2"></div>
+            <div id="errorMessages2" class="errorMessages"></div>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </form>
+    </div>
+
+    <template id="formTemplate">
+        <p>
+            <label for="vorname">Vorname:</label> <br>
+            <input type="text" id="vorname" name="vorname"> <br>
+
+            <label for="nachname">Nachname:</label> <br>
+            <input type="text" id="nachname" name="nachname"> <br>
+
+            <label for="geburtsdatum">Geburtsdatum:</label> <br>
+            <input type="text" id="geburtsdatum" name="geburtsdatum"> <br>
+
+            <label for="addresse">Addresse:</label> <br>
+            <input type="text" id="addresse" name="addresse"> <br>
+
+            <label for="versicherungsbeginn">Versicherungsbeginn:</label> <br>
+            <input type="text" id="versicherungsbeginn" name="versicherungsbeginn"> <br>
+
+            <label for="fahrzeug_hersteller">Fahrzeughersteller:</label> <br>
+            <input type="text" id="fahrzeug_hersteller" name="fahrzeug_hersteller"> <br>
+
+            <label for="fahrzeug_typ">Fahrzeugtyp:</label> <br>
+            <input type="text" id="fahrzeug_typ" name="fahrzeug_typ"> <br>
+
+            <label for="fahrzeug_hoechstgeschwindigkeit">Höchstgeschwindigkeit:</label> <br>
+            <input type="text" id="fahrzeug_hoechstgeschwindigkeit" name="fahrzeug_hoechstgeschwindigkeit"> <br>
+
+            <label for="amtliches_kennzeichen">Amtliches Kennzeichen:</label> <br>
+            <input type="text" id="amtliches_kennzeichen" name="amtliches_kennzeichen"> <br>
+        </p>
+    </template>
+    <script src="JavaScript/script.js"></script>
+
+</body>
+</html>
