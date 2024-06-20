@@ -11,35 +11,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/vertrag")
-public class KundenController {
+public class VertragController {
 
     @Autowired
     private VertragsService vertragsService;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Vertrag>> getVertraege() {
-        return ResponseEntity.ok(vertragsService.getVertraege());
-    }
-
     @GetMapping("/{vsnr}")
-    public ResponseEntity<Vertrag> getVsnrVertrag(@PathVariable("vsnr") String vsnr) {
-        return ResponseEntity.ok(vertragsService.getVertrag(vsnr));
+    public ResponseEntity<Vertrag> getVertragFromVsnr(@PathVariable("vsnr") String vsnr) {
+        return ResponseEntity.ok(vertragsService.findVertragWithVsnr(vsnr));
     }
 
     @PostMapping(value = "/new",
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vertrag> postNeuVertrag(@RequestBody Vertrag vertrag) {
-        return ResponseEntity.ok(vertragsService.postNeu(vertrag));
+    public ResponseEntity<Vertrag> postNeuVertragAnlegen(@RequestBody Vertrag vertrag) {
+        return ResponseEntity.ok(vertragsService.neuVertragAnlegen(vertrag));
     }
 
     @PutMapping(value = "/change",
-            consumes = MediaType.APPLICATION_JSON_VALUE)
+            consumes = MediaType.APPLICATION_JSON_VALUE) // TODO Darf keinen neuen Vertrag anlegen
     public ResponseEntity<Vertrag> putAenderungVertrag(@RequestBody Vertrag vertrag) {
-        return ResponseEntity.ok(vertragsService.postAenderung(vertrag));
+        return ResponseEntity.ok(vertragsService.vertragsAenderung(vertrag));
     }
 
     @DeleteMapping(value = "/delete/{vsnr}")
-    public ResponseEntity<String> deleteVertrag(@PathVariable String vsnr) {
-        return ResponseEntity.ok(vertragsService.deleteVertraegeVSNR(vsnr));
+    public ResponseEntity<String> deleteVertragVsnr(@PathVariable String vsnr) {
+        return ResponseEntity.ok(vertragsService.deleteVertragByVsnr(vsnr));
     }
 }

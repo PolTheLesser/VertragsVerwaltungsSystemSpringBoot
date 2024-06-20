@@ -34,7 +34,7 @@ public class VertragsService {
     @Autowired
     private VertragsValidierungsService validierungsService;
 
-    public List<Vertrag> getVertraege() {
+    public List<Vertrag> findVertraege() {
 
         JSONObject jsonObject;
 
@@ -65,17 +65,17 @@ public class VertragsService {
         return vertraege;
     }
 
-    public Vertrag getVertrag(String vsnr) {
+    public Vertrag findVertragWithVsnr(String vsnr) {
         String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vsnr + ".json";
 
         JSONObject jsonObject = fileRepository.getJsonObject(path);
 
-        validierungsService.doesContractExist(jsonObject);
+        validierungsService.doesContractExist(path);
 
         return mapper.jsonObjectToVertrag(jsonObject);
     }
 
-    public Vertrag postNeu(Vertrag vertrag) {
+    public Vertrag neuVertragAnlegen(Vertrag vertrag) {
 
         File tempFile;
 
@@ -91,23 +91,24 @@ public class VertragsService {
         String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vsnrNeu + ".json";
 
         vertrag.setVsnr(vsnrNeu);
-        vertrag.setWagniskennziffer(112);
 
         validierungsService.verifyContract(vertrag);
 
         return datenUeberschreiben(path, vertrag);
     }
 
-    public Vertrag postAenderung(Vertrag vertrag) {
+    public Vertrag vertragsAenderung(Vertrag vertrag) {
 
         String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vertrag.getVsnr() + ".json";
+
+
 
         validierungsService.verifyChanges(vertrag);
 
         return datenUeberschreiben(path, vertrag);
     }
 
-    public String deleteVertraegeVSNR(String vsnr) {
+    public String deleteVertragByVsnr(String vsnr) {
 
         if (fileRepository.deleteFile(vsnr)) {
             return "Datei erfolgreich entfernt.";
@@ -130,7 +131,7 @@ public class VertragsService {
         jsonObjectNew.put("fahrzeug_hersteller", vertrag.getFahrzeug_hersteller());
         jsonObjectNew.put("fahrzeug_typ", vertrag.getFahrzeug_typ());
         jsonObjectNew.put("fahrzeug_hoechstgeschwindigkeit", vertrag.getFahrzeug_hoechstgeschwindigkeit());
-        jsonObjectNew.put("wagniskennziffer", vertrag.getWagniskennziffer());
+        jsonObjectNew.put("wagniskennziffer", 112);
         jsonObjectNew.put("nachname", vertrag.getNachname());
         jsonObjectNew.put("vorname", vertrag.getVorname());
         jsonObjectNew.put("addresse", vertrag.getAddresse());

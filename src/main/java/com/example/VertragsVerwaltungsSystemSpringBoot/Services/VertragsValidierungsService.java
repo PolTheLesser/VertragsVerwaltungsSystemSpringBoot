@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -26,7 +27,7 @@ public class VertragsValidierungsService {
 
     private List<ValidationError> errors = new ArrayList<>();
 
-    public void verifyChanges(Vertrag vertrag) {
+    public void verifyContract(Vertrag vertrag) {
         verifyStringAttribute("Vorname", vertrag.getVorname());
         verifyStringAttribute("Nachname", vertrag.getNachname());
         verifyStringAttribute("Addresse", vertrag.getAddresse());
@@ -43,8 +44,10 @@ public class VertragsValidierungsService {
         }
     }
 
-    public void verifyContract(Vertrag vertrag) {
-        verifyChanges(vertrag);
+    public void verifyChanges(Vertrag vertrag) {
+        String path = fileRepository.srcPath() + "/main/resources/vertraege/" + vertrag.getVsnr() + ".json";
+        doesContractExist(path);
+        verifyContract(vertrag);
     }
 
     public void isPreisValid(Vertrag vertrag) {
@@ -76,7 +79,6 @@ public class VertragsValidierungsService {
             errors.add(new ValidationError("Höchstgeschwindigkeit", "Die Höchstgeschwindigkeit muss mehr als 0 km/h betragen."));
         }
     }
-
 
     private void verifyDate(String attributeName, String date) {
         if (date == null || date.isEmpty()) {
@@ -138,8 +140,9 @@ public class VertragsValidierungsService {
         return errors;
     }
 
-    public void doesContractExist(JSONObject jsonObject) {
-        if (jsonObject == null) {
+    public void doesContractExist(String path) {
+        File file = new File(path);
+        if (!file.isFile()) {
             throw new NoContractFoundException("Der Vertrag existiert nicht.");
         }
     }
