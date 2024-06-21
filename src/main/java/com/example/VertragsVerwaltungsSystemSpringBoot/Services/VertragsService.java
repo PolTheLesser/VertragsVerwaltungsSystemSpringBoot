@@ -34,27 +34,13 @@ public class VertragsService {
     @Autowired
     private VertragsValidierungsService validierungsService;
 
-    public List<Vertrag> findVertraege() {
+    public List<Vertrag> findVertraege() { // TODO Zugriff auf fileRepository verlegen
 
         JSONObject jsonObject;
-
-        String path = fileRepository.srcPath() + "/main/resources/vertraege";
-
-        Stream<Path> walk;
+        List<String> result;
         List<Vertrag> vertraege = new ArrayList<>();
 
-        try {
-            walk = Files.walk(Paths.get(path));
-
-        } catch (IOException e) {
-            System.out.println("Es sind noch keine Verträge vorhanden.");
-            return vertraege;
-        }
-
-        List<String> result = walk
-                .map(x -> x.toString())
-                .filter(f -> f.endsWith(".json"))
-                .collect(Collectors.toList());
+        result = fileRepository.getFilenames();
 
         for (String fileName : result) {
 
@@ -142,6 +128,8 @@ public class VertragsService {
         vertrag.setPreis(Double.parseDouble(putPreis));
 
         jsonObjectNew.put("preis", vertrag.getPreis());
+
+        vertrag = mapper.jsonObjectToVertrag(jsonObjectNew);
 
         boolean isWritten = fileRepository.writeFile(path, jsonObjectNew);
 

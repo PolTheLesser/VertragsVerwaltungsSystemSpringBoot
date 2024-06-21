@@ -12,9 +12,9 @@ public class Mapper {
         Vertrag vertrag = new Vertrag();
 
         if (jsonObject.get("methode") == null && jsonObject.get("vertrag") == null){
-            vertrag.setWagniskennziffer((int) (long) jsonObject.get("wagniskennziffer"));
+            vertrag.setWagniskennziffer(new Integer(jsonObject.get("wagniskennziffer").toString()));
             vertrag.setPreis(new Double(jsonObject.get("preis").toString()));
-            vertrag.setVsnr((int) (long) jsonObject.get("vsnr"));
+            vertrag.setVsnr(new Integer(jsonObject.get("vsnr").toString()));
             vertrag.setVorname((String) jsonObject.get("vorname"));
             vertrag.setNachname((String) jsonObject.get("nachname"));
             vertrag.setGeburtsdatum((String) jsonObject.get("geburtsdatum"));
@@ -22,8 +22,8 @@ public class Mapper {
             vertrag.setVersicherungsbeginn((String) jsonObject.get("versicherungsbeginn"));
             vertrag.setFahrzeug_hersteller((String) jsonObject.get("fahrzeug_hersteller"));
             vertrag.setFahrzeug_typ((String) jsonObject.get("fahrzeug_typ"));
-            vertrag.setFahrzeug_hoechstgeschwindigkeit((int) (long) jsonObject.get("fahrzeug_hoechstgeschwindigkeit"));
-            vertrag.setAmtliches_kennzeichen((String) jsonObject.get("amtliches_kennzeichen"));
+            vertrag.setFahrzeug_hoechstgeschwindigkeit(new Integer(jsonObject.get("fahrzeug_hoechstgeschwindigkeit").toString()));
+            vertrag.setAmtliches_kennzeichen((String) jsonObject.get("amtliches_kennzeichen").toString());
             vertrag.setAntrags_datum(jsonObject.get("antragsdatum"));
         }
         return vertrag;

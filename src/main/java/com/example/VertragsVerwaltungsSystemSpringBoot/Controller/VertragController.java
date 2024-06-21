@@ -28,7 +28,7 @@ public class VertragController {
     }
 
     @PutMapping(value = "/change",
-            consumes = MediaType.APPLICATION_JSON_VALUE) // TODO Darf keinen neuen Vertrag anlegen
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vertrag> putAenderungVertrag(@RequestBody Vertrag vertrag) {
         return ResponseEntity.ok(vertragsService.vertragsAenderung(vertrag));
     }
