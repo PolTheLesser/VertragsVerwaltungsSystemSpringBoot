@@ -1,7 +1,6 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Services;
 
 import com.example.VertragsVerwaltungsSystemSpringBoot.Data.FileRepository;
-import com.example.VertragsVerwaltungsSystemSpringBoot.Mapper.Mapper;
 import com.example.VertragsVerwaltungsSystemSpringBoot.Model.Vertrag;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

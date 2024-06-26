@@ -1,23 +1,17 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Services;
 
 import com.example.VertragsVerwaltungsSystemSpringBoot.Data.FileRepository;
-import com.example.VertragsVerwaltungsSystemSpringBoot.Model.Vertrag;
 import com.example.VertragsVerwaltungsSystemSpringBoot.Mapper.Mapper;
+import com.example.VertragsVerwaltungsSystemSpringBoot.Model.Vertrag;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class VertragsService {
@@ -34,7 +28,7 @@ public class VertragsService {
     @Autowired
     private VertragsValidierungsService validierungsService;
 
-    public List<Vertrag> findVertraege() { // TODO Zugriff auf fileRepository verlegen
+    public List<Vertrag> findVertraege() {
 
         JSONObject jsonObject;
         List<String> result;

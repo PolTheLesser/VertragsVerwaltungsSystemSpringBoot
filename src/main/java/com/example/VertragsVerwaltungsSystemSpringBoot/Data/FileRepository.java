@@ -1,7 +1,6 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Data;
 
 import com.example.VertragsVerwaltungsSystemSpringBoot.Exceptions.NoContractFoundException;
-import com.example.VertragsVerwaltungsSystemSpringBoot.Model.Vertrag;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -99,7 +97,6 @@ public class FileRepository {
         String path = srcPath() + "/main/resources/vertraege";
 
         Stream<Path> walk;
-
 
         try {
             walk = Files.walk(Paths.get(path));
