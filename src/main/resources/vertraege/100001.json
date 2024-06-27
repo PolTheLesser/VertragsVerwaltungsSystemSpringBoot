@@ -1,0 +1,15 @@
+{
+  "vorname": "ALbert",
+  "wagniskennziffer": 112,
+  "addresse": "Coronastraße 2020",
+  "fahrzeug_typ": "Ibiza",
+  "fahrzeug_hoechstgeschwindigkeit": 180,
+  "fahrzeug_hersteller": "Porsche",
+  "versicherungsbeginn": "01.07.2024",
+  "geburtsdatum": "02.02.2000",
+  "preis": 270.0,
+  "amtliches_kennzeichen": "K-MM-2002",
+  "vsnr": 100001,
+  "antragsdatum": "10.06.2024",
+  "nachname": "Einstein"
+}

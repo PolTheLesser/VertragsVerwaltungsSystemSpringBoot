@@ -14,7 +14,7 @@ public class VertragController {
     @Autowired
     private VertragsService vertragsService;
 
-    @GetMapping("/{vsnr}")
+    @GetMapping(value = "/{vsnr}")
     public ResponseEntity<Vertrag> getVertragFromVsnr(@PathVariable("vsnr") String vsnr) {
         return ResponseEntity.ok(vertragsService.findVertragWithVsnr(vsnr));
     }

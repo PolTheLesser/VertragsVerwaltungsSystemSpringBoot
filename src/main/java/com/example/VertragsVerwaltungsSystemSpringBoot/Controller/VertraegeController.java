@@ -17,7 +17,7 @@ public class VertraegeController {
     @Autowired
     private VertragsService vertragsService;
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<Vertrag>> getVertraege() {
         return ResponseEntity.ok(vertragsService.findVertraege());
     }
