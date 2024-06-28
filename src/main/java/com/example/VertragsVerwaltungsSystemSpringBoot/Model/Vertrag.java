@@ -1,7 +1,11 @@
 package com.example.VertragsVerwaltungsSystemSpringBoot.Model;
 
+/**
+ * Die Vertrag-Klasse repräsentiert ein Modell für einen Vertrag mit verschiedenen Attributen.
+ */
 public class Vertrag {
 
+    // Attribute eines Vertrags
     private int wagniskennziffer;
     private int vsnr;
     private double preis;
@@ -15,6 +19,8 @@ public class Vertrag {
     private int fahrzeug_hoechstgeschwindigkeit;
     private String amtliches_kennzeichen;
     private Object antrags_datum;
+
+    // Getter und Setter für die Attribute
 
     public int getWagniskennziffer() {
         return wagniskennziffer;
